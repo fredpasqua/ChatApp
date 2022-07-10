@@ -63,7 +63,7 @@ export default class Screen1 extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={BackgroundImage} style={styles.image}>
           <View style={styles.titleWrapper}>
-            <Text style={styles.titleText}>Meet App</Text>
+            <Text style={styles.titleText}>Blather</Text>
           </View>
           <View style={styles.userInterfaceWrapper}>
             <TextInput
