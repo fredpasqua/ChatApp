@@ -38,6 +38,7 @@ export default class Screen1 extends React.Component {
         borderRadius: 2,
       },
       textInput: {
+        padding: 10,
         marginTop: 10,
         height: 40,
         borderColor: "gray",
@@ -69,7 +70,7 @@ export default class Screen1 extends React.Component {
               style={styles.textInput}
               onChangeText={(name) => this.setState({ name })}
               value={this.state.name}
-              placeholder="enter your stupid name!"
+              placeholder="Your name:"
             />
             <Button
               style={styles.button}
