@@ -1,6 +1,6 @@
 import React from "react";
 import BackgroundImage from "../assets/Backgroundimage.png";
-import icon from "../assets/icon.svg";
+
 import {
   View,
   Text,
@@ -121,7 +121,7 @@ export default class Screen1 extends React.Component {
               </Text>
               <View style={styles.colorPicker}>
                 <View style={[styles.circle, styles.color1]}></View>
-                <View style={[styles.circle, styles.color2]}> </View>
+                <View style={[styles.circle, styles.color2]}></View>
                 <View style={[styles.circle, styles.color3]}></View>
                 <View style={[styles.circle, styles.color4]}></View>
               </View>
