@@ -132,7 +132,9 @@ export default class Screen1 extends React.Component {
                 style={styles.button}
                 title="Start Chatting"
                 onPress={() => {
-                  this.props.navigation.navigate("Chat");
+                  this.props.navigation.navigate("Chat", {
+                    name: this.state.name,
+                  });
                   console.log(this.state.name);
                 }}
               />
