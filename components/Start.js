@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Image,
 } from "react-native";
 
 export default class Screen1 extends React.Component {
@@ -29,26 +30,18 @@ export default class Screen1 extends React.Component {
       },
       button: {
         color: "#757083",
-        width: "88%",
-        borderRadius: "0",
       },
       userInterfaceWrapper: {
         flex: 1,
         width: "88%",
         backgroundColor: "white",
         alignItems: "center",
+        justifyContent: "center",
         height: "44%",
         marginBottom: 10,
         borderRadius: 2,
       },
-      textInput: {
-        padding: 10,
-        margin: 10,
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        width: "88%",
-      },
+      textInput: {},
       image: {
         flex: 1,
         justifyContent: "center",
@@ -61,20 +54,31 @@ export default class Screen1 extends React.Component {
         fontWeight: "600",
         textAlign: "center",
       },
+      textInputContainer: {
+        flex: 0.2,
+
+        flexDirection: "row",
+        width: "88%",
+        alignItems: "center",
+        borderWidth: 2,
+        borderColor: "#757083",
+        margin: 10,
+        marginBottom: 30,
+      },
       colorText: {
         color: "#757083",
       },
       colorChoiceWrapper: {
-        flex: 1,
+        flex: 0.4,
         width: "88%",
       },
       buttonWrapper: {
+        flex: 0.4,
+        margin: 5,
+        alignItems: "center",
+        justifyContent: "center",
         width: "88%",
-        color: "757083",
-        borderColor: "757083",
-        borderWidth: 3,
-        borderRadius: 5,
-        marginBottom: 20,
+        marginBottom: 10,
       },
       colorPicker: {
         flexDirection: "row",
@@ -109,12 +113,15 @@ export default class Screen1 extends React.Component {
           </View>
 
           <View style={styles.userInterfaceWrapper}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={(name) => this.setState({ name })}
-              value={this.state.name}
-              placeholder="Your name:"
-            />
+            <View style={styles.textInputContainer}>
+              <Image source={require("../assets/chatIcon.jpeg")}></Image>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={(name) => this.setState({ name })}
+                value={this.state.name}
+                placeholder="Your name:"
+              />
+            </View>
 
             <View style={styles.colorChoiceWrapper}>
               <Text style={styles.circle.colorText}>
