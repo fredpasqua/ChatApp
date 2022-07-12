@@ -13,7 +13,7 @@ import {
 export default class Screen1 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "" };
+    this.state = { name: "", color: "" };
   }
   render() {
     const styles = StyleSheet.create({
@@ -73,6 +73,7 @@ export default class Screen1 extends React.Component {
         borderColor: "757083",
         borderWidth: 3,
         borderRadius: 5,
+        marginBottom: 20,
       },
       colorPicker: {
         flexDirection: "row",
@@ -131,9 +132,7 @@ export default class Screen1 extends React.Component {
                 style={styles.button}
                 title="Start Chatting"
                 onPress={() => {
-                  this.props.navigation.navigate("Chat", {
-                    name: this.state.name,
-                  });
+                  this.props.navigation.navigate("Chat");
                   console.log(this.state.name);
                 }}
               />
