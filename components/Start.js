@@ -8,6 +8,7 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
+  Pressable,
 } from "react-native";
 
 export default class Screen1 extends React.Component {
@@ -119,11 +120,39 @@ export default class Screen1 extends React.Component {
               <Text style={styles.circle.colorText}>
                 Choose Background Color:
               </Text>
+
               <View style={styles.colorPicker}>
-                <View style={[styles.circle, styles.color1]}></View>
-                <View style={[styles.circle, styles.color2]}></View>
-                <View style={[styles.circle, styles.color3]}></View>
-                <View style={[styles.circle, styles.color4]}></View>
+                <Pressable
+                  onPress={() => {
+                    this.setState({ color: "#090C08" });
+                  }}
+                >
+                  <View style={[styles.circle, styles.color1]}></View>
+                </Pressable>
+
+                <Pressable
+                  onPress={() => {
+                    this.setState({ color: "#474056" });
+                  }}
+                >
+                  <View style={[styles.circle, styles.color2]}></View>
+                </Pressable>
+
+                <Pressable
+                  onPress={() => {
+                    this.setState({ color: "#8A95A5" });
+                  }}
+                >
+                  <View style={[styles.circle, styles.color3]}></View>
+                </Pressable>
+
+                <Pressable
+                  onPress={() => {
+                    this.setState({ color: "#B9C6AE" });
+                  }}
+                >
+                  <View style={[styles.circle, styles.color4]}></View>
+                </Pressable>
               </View>
             </View>
 
@@ -131,12 +160,12 @@ export default class Screen1 extends React.Component {
               <Button
                 style={styles.button}
                 title="Start Chatting"
-                onPress={() => {
+                onPress={() =>
                   this.props.navigation.navigate("Chat", {
                     name: this.state.name,
-                  });
-                  console.log(this.state.name);
-                }}
+                    color: this.state.color,
+                  })
+                }
               />
             </View>
           </View>
