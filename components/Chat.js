@@ -6,10 +6,18 @@ export default class Chat extends React.Component {
     super(props);
   }
   render() {
-    let { name } = this.props.route.params.name;
+    let { name, color } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
+
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: color,
+        }}
+      >
         <Text>Chat Screen</Text>
       </View>
     );
