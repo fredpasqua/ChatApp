@@ -31,7 +31,6 @@ export default class Screen1 extends React.Component {
         width: "88%",
         borderRadius: "0",
       },
-
       userInterfaceWrapper: {
         flex: 1,
         width: "88%",
@@ -131,7 +130,12 @@ export default class Screen1 extends React.Component {
               <Button
                 style={styles.button}
                 title="Start Chatting"
-                onPress={() => this.props.navigation.navigate("Chat")}
+                onPress={() => {
+                  this.props.navigation.navigate("Chat", {
+                    name: this.state.name,
+                  });
+                  console.log(this.state.name);
+                }}
               />
             </View>
           </View>
