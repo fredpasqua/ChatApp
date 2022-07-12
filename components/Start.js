@@ -8,7 +8,7 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
-  Pressable,
+  TouchableOpacity,
 } from "react-native";
 
 export default class Screen1 extends React.Component {
@@ -122,37 +122,37 @@ export default class Screen1 extends React.Component {
               </Text>
 
               <View style={styles.colorPicker}>
-                <Pressable
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({ color: "#090C08" });
                   }}
                 >
                   <View style={[styles.circle, styles.color1]}></View>
-                </Pressable>
+                </TouchableOpacity>
 
-                <Pressable
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({ color: "#474056" });
                   }}
                 >
                   <View style={[styles.circle, styles.color2]}></View>
-                </Pressable>
+                </TouchableOpacity>
 
-                <Pressable
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({ color: "#8A95A5" });
                   }}
                 >
                   <View style={[styles.circle, styles.color3]}></View>
-                </Pressable>
+                </TouchableOpacity>
 
-                <Pressable
+                <TouchableOpacity
                   onPress={() => {
                     this.setState({ color: "#B9C6AE" });
                   }}
                 >
                   <View style={[styles.circle, styles.color4]}></View>
-                </Pressable>
+                </TouchableOpacity>
               </View>
             </View>
 
