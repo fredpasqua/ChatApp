@@ -15,6 +15,7 @@ import {
 export default class Screen1 extends React.Component {
   constructor(props) {
     super(props);
+    //State to hold name of user and the background color of the chat screen
     this.state = { name: "", color: "" };
   }
   render() {
@@ -167,6 +168,7 @@ export default class Screen1 extends React.Component {
               <Button
                 style={styles.button}
                 title="Start Chatting"
+                //send state as props to the chat page
                 onPress={() =>
                   this.props.navigation.navigate("Chat", {
                     name: this.state.name,
