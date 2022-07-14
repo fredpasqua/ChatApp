@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import {
+  View,
+  Platform,
+  Text,
+  KeyboardAvoidingView,
+  StyleSheet,
+} from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 export default class Chat extends React.Component {
   constructor(props) {
@@ -33,17 +39,27 @@ export default class Chat extends React.Component {
   }
 
   render() {
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+      },
+    });
     let { name, color } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
 
     return (
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={(messages) => this.onSend(messages)}
-        user={{
-          _id: 1,
-        }}
-      />
+      <View style={styles.container}>
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={(messages) => this.onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+        />
+        {Platform.OS === "android" ? (
+          <KeyboardAvoidingView behavior="height" />
+        ) : null}
+      </View>
     );
   }
 }

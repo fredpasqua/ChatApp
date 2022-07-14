@@ -10,6 +10,8 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 
 export default class Screen1 extends React.Component {
@@ -42,7 +44,9 @@ export default class Screen1 extends React.Component {
         marginBottom: 10,
         borderRadius: 2,
       },
-      textInput: {},
+      textInput: {
+        flex: 1,
+      },
       image: {
         flex: 1,
         justifyContent: "center",
@@ -57,7 +61,6 @@ export default class Screen1 extends React.Component {
       },
       textInputContainer: {
         flex: 0.2,
-
         flexDirection: "row",
         width: "88%",
         alignItems: "center",
@@ -107,7 +110,10 @@ export default class Screen1 extends React.Component {
     });
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <ImageBackground source={BackgroundImage} style={styles.image}>
           <View style={styles.titleWrapper}>
             <Text style={styles.titleText}>Blather</Text>
@@ -179,7 +185,7 @@ export default class Screen1 extends React.Component {
             </View>
           </View>
         </ImageBackground>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
