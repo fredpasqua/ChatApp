@@ -137,6 +137,10 @@ export default class Screen1 extends React.Component {
 
               <View style={styles.colorPicker}>
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Background color"
+                  accessibilityHint="Lets you choose the color of the chat background."
+                  accessibilityRole="button"
                   onPress={() => {
                     this.setState({ color: "#090C08" });
                   }}
@@ -145,6 +149,10 @@ export default class Screen1 extends React.Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Background color"
+                  accessibilityHint="Lets you choose the color of the chat background."
+                  accessibilityRole="button"
                   onPress={() => {
                     this.setState({ color: "#474056" });
                   }}
@@ -153,6 +161,10 @@ export default class Screen1 extends React.Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Background color"
+                  accessibilityHint="Lets you choose the color of the chat background."
+                  accessibilityRole="button"
                   onPress={() => {
                     this.setState({ color: "#8A95A5" });
                   }}
@@ -161,6 +173,10 @@ export default class Screen1 extends React.Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="Background color"
+                  accessibilityHint="Lets you choose the color of the chat background."
+                  accessibilityRole="button"
                   onPress={() => {
                     this.setState({ color: "#B9C6AE" });
                   }}
@@ -172,6 +188,10 @@ export default class Screen1 extends React.Component {
 
             <View style={styles.buttonWrapper}>
               <Button
+                accessible={true}
+                accessibilityLabel="Start Chatting"
+                accessibilityHint="opens the chat window"
+                accessibilityRole="button"
                 style={styles.button}
                 title="Start Chatting"
                 //send state as props to the chat page
