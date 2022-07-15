@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
 } from "react-native";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, renderBubble } from "react-native-gifted-chat";
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +51,9 @@ export default class Chat extends React.Component {
         backgroundColor: this.props.route.params.color,
       },
     });
+
     let { name, color } = this.props.route.params;
+
     this.props.navigation.setOptions({ title: name });
 
     return (
@@ -59,6 +61,29 @@ export default class Chat extends React.Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={(messages) => this.onSend(messages)}
+          renderBubble={(props) => {
+            return (
+              <Bubble
+                {...props}
+                textStyle={{
+                  right: {
+                    color: "white",
+                  },
+                  left: {
+                    color: "#24204F",
+                  },
+                }}
+                wrapperStyle={{
+                  left: {
+                    backgroundColor: "#E6F5F3",
+                  },
+                  right: {
+                    backgroundColor: "#3A13C3",
+                  },
+                }}
+              />
+            );
+          }}
           user={{
             _id: 1,
           }}
