@@ -23,35 +23,53 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-this.referenceChatMessages = firebase.firestore().collection("messages");
+
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
+      uid: 0,
+      user: {
+        _id: "",
+        name: "",
+        avatar: "",
+      },
     };
   }
 
+  addMessage = (message) => {
+    this.referenceChatMessages.add({
+      uid: this.state.uid,
+      _id: message._id,
+      text: message.text || "",
+      createdAt: message.createdAt,
+      user: message.user,
+    });
+  };
+
   componentDidMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: "Hello developer",
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: "React Native",
-            avatar: "https://placeimg.com/140/140/any",
-          },
-        },
-        {
-          _id: 2,
-          text: "This is a system message",
-          createdAt: new Date(),
-          system: true,
-        },
-      ],
+    //create reference to messages
+    this.referenceChatMessages = firebase.firestore().collection("messages");
+
+    //Authenticate user using anonymous
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+      if (!user) {
+        await firebase.auth().signInAnonymously();
+      }
+      //update user state with currently active user data
+      this.setState({
+        uid: user.uid,
+      });
+      //create a reference to the active user's messages
+      this.referenceUserChatMessages = firebase
+        .firestore()
+        .collection("messages")
+        .where("uid", "==", this.state.uid);
+      //listen for collection changes for current user
+      this.unsubscribeMessageUser = this.referenceUserChatMessages.onSnapshot(
+        this.onCollectionUpdate
+      );
     });
   }
 
@@ -60,6 +78,24 @@ export default class Chat extends React.Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }));
   }
+
+  onCollectionUpdate = (querySnapshot) => {
+    const messages = [];
+    // go through each document
+    querySnapshot.forEach((doc) => {
+      // get the QueryDocumentSnapshot's data
+      let data = doc.data();
+      messages.push({
+        _id: data._id,
+        text: data.text,
+        createdAt: data.createdAt.toDate(),
+        user: data.user,
+      });
+    });
+    this.setState({
+      messages,
+    });
+  };
 
   render() {
     const styles = StyleSheet.create({
