@@ -20,7 +20,9 @@ const firebaseConfig = {
   messagingSenderId: "485930190039",
   appId: "1:485930190039:web:77ae48a7d82a4fff1cdc92",
 };
-
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 this.referenceChatMessages = firebase.firestore().collection("messages");
 export default class Chat extends React.Component {
   constructor(props) {
