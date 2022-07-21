@@ -12,8 +12,16 @@ import { StatusBar } from "expo-status-bar";
 const firebase = require("firebase");
 require("firebase/firestore");
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBYDsu93VfkkUy_a3F5OdxL0HvOL-NiU_w",
+  authDomain: "chatapp-de0a1.firebaseapp.com",
+  projectId: "chatapp-de0a1",
+  storageBucket: "chatapp-de0a1.appspot.com",
+  messagingSenderId: "485930190039",
+  appId: "1:485930190039:web:77ae48a7d82a4fff1cdc92",
+};
 
-
+this.referenceChatMessages = firebase.firestore().collection("messages");
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
