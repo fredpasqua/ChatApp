@@ -5,8 +5,15 @@ import {
   Text,
   KeyboardAvoidingView,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import { GiftedChat, Bubble, renderBubble } from "react-native-gifted-chat";
+import { StatusBar } from "expo-status-bar";
+const firebase = require("firebase");
+require("firebase/firestore");
+
+
+
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
