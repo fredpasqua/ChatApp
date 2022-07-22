@@ -35,6 +35,8 @@ export default class Chat extends React.Component {
         avatar: "",
       },
     };
+
+    this.referenceChatMessages = firebase.firestore().collection("messages");
   }
 
   addMessage = (message) => {
@@ -57,8 +59,9 @@ export default class Chat extends React.Component {
       //update user state with currently active user data
       this.setState({
         uid: user.uid,
+        user: { _id: user.uid },
       });
-      console.log(this.state.uid);
+
       //create a reference to the active user's messages
       this.referenceUserChatMessages = firebase
         .firestore()
@@ -77,19 +80,26 @@ export default class Chat extends React.Component {
     }));
     //NEW CODE NEED TO CHECK IF IT WORKS!!!!
     this.addMessage(messages);
+
   }
 
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
+    console.log(querySnapshot);
     // go through each document
     querySnapshot.forEach((doc) => {
       // get the QueryDocumentSnapshot's data
       let data = doc.data();
+      console.log(data);
       messages.push({
         _id: data._id,
         text: data.text,
         createdAt: data.createdAt.toDate(),
-        user: data.user,
+        user: {
+          _id: data.user._id,
+          name: data.user.name,
+          avatar: data.user.avatar || "",
+        },
       });
     });
     this.setState({
@@ -108,7 +118,6 @@ export default class Chat extends React.Component {
     let { name, color } = this.props.route.params;
 
     this.props.navigation.setOptions({ title: name });
-    let { _id } = this.state.uid;
     return (
       <View style={styles.container}>
         <GiftedChat
@@ -137,9 +146,7 @@ export default class Chat extends React.Component {
               />
             );
           }}
-          user={{
-            name,
-          }}
+          user={{ _id: this.state.user._id, name: name }}
         />
         {Platform.OS === "android" ? (
           <KeyboardAvoidingView behavior="height" />
