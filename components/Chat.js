@@ -5,7 +5,6 @@ import {
   Text,
   KeyboardAvoidingView,
   StyleSheet,
-  FlatList,
 } from "react-native";
 import { GiftedChat, Bubble, renderBubble } from "react-native-gifted-chat";
 import { StatusBar } from "expo-status-bar";
@@ -39,12 +38,9 @@ export default class Chat extends React.Component {
   }
 
   addMessage = (message) => {
+    console.log(message);
     this.referenceChatMessages.add({
-      uid: this.state.uid,
-      _id: message._id,
-      text: message.text || "",
-      createdAt: message.createdAt,
-      user: message.user,
+      message,
     });
   };
 
@@ -57,10 +53,12 @@ export default class Chat extends React.Component {
       if (!user) {
         await firebase.auth().signInAnonymously();
       }
+
       //update user state with currently active user data
       this.setState({
         uid: user.uid,
       });
+      console.log(this.state.uid);
       //create a reference to the active user's messages
       this.referenceUserChatMessages = firebase
         .firestore()
@@ -77,6 +75,8 @@ export default class Chat extends React.Component {
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }));
+    //NEW CODE NEED TO CHECK IF IT WORKS!!!!
+    this.addMessage(messages);
   }
 
   onCollectionUpdate = (querySnapshot) => {
@@ -108,7 +108,7 @@ export default class Chat extends React.Component {
     let { name, color } = this.props.route.params;
 
     this.props.navigation.setOptions({ title: name });
-
+    let { _id } = this.state.uid;
     return (
       <View style={styles.container}>
         <GiftedChat
@@ -138,7 +138,7 @@ export default class Chat extends React.Component {
             );
           }}
           user={{
-            _id: 1,
+            name,
           }}
         />
         {Platform.OS === "android" ? (

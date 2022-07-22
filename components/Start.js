@@ -44,9 +44,6 @@ export default class Screen1 extends React.Component {
         marginBottom: 10,
         borderRadius: 2,
       },
-      textInput: {
-        flex: 1,
-      },
       image: {
         flex: 1,
         justifyContent: "center",
@@ -60,14 +57,18 @@ export default class Screen1 extends React.Component {
         textAlign: "center",
       },
       textInputContainer: {
-        flex: 0.2,
+        flex: 0.26,
         flexDirection: "row",
         width: "88%",
+        height: 25,
         alignItems: "center",
         borderWidth: 2,
         borderColor: "#757083",
         margin: 10,
         marginBottom: 30,
+      },
+      textInput: {
+        flex: 1,
       },
       colorText: {
         color: "#757083",
@@ -116,7 +117,7 @@ export default class Screen1 extends React.Component {
       >
         <ImageBackground source={BackgroundImage} style={styles.image}>
           <View style={styles.titleWrapper}>
-            <Text style={styles.titleText}>Blather</Text>
+            <Text style={styles.titleText}>Chatter</Text>
           </View>
 
           <View style={styles.userInterfaceWrapper}>
