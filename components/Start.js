@@ -98,18 +98,19 @@ export default class Screen1 extends React.Component {
               </View>
             </View>
             <View>
-              <Pressable>
+              <Pressable
                 style={styles.pressable}
-                onPress=
-                {() =>
+                onPress={() =>
                   this.props.navigation.navigate("Chat", {
                     name: this.state.name,
                     color: this.state.color,
                   })
                 }
                 accessible={true}
-                accessibilityLabel="Start chatting" accessibilityHint="Enters
+                accessibilityLabel="Start chatting"
+                accessibilityHint="Enters
                 the chat with your selected username and background color"
+              >
                 <Text style={styles.pressableText}>Start Chatting</Text>
               </Pressable>
             </View>
