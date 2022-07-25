@@ -97,7 +97,7 @@ export default class Screen1 extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <View>
+            <View style={styles.buttonwrapper}>
               <Pressable
                 style={styles.pressable}
                 onPress={() =>
@@ -133,15 +133,18 @@ const styles = StyleSheet.create({
   },
   pressable: {
     backgroundColor: "#757083",
-    width: "17rem",
     position: "relative",
-    top: "25px",
-    height: "30px",
+    top: 25,
+    height: 25,
     alignItems: "center",
     justifyContent: "center",
   },
   pressableText: {
     color: "white",
+  },
+  buttonwrapper: {
+    width: "88%",
+    flex: 0.33,
   },
   userInterfaceWrapper: {
     flex: 1,
