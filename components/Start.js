@@ -4,7 +4,6 @@ import BackgroundImage from "../assets/Backgroundimage.png";
 import {
   View,
   Text,
-  Button,
   TextInput,
   StyleSheet,
   ImageBackground,
@@ -12,6 +11,7 @@ import {
   Image,
   Platform,
   KeyboardAvoidingView,
+  Pressable,
 } from "react-native";
 
 export default class Screen1 extends React.Component {
@@ -21,95 +21,6 @@ export default class Screen1 extends React.Component {
     this.state = { name: "", color: "" };
   }
   render() {
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-      },
-      titleWrapper: {
-        flex: 1,
-        padding: 50,
-      },
-      button: {
-        color: "#757083",
-      },
-      userInterfaceWrapper: {
-        flex: 1,
-        width: "88%",
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "44%",
-        marginBottom: 10,
-        borderRadius: 2,
-      },
-      image: {
-        flex: 1,
-        justifyContent: "center",
-        width: "100%",
-        alignItems: "center",
-      },
-      titleText: {
-        color: "#FFFFFF",
-        fontSize: 45,
-        fontWeight: "600",
-        textAlign: "center",
-      },
-      textInputContainer: {
-        flex: 0.26,
-        flexDirection: "row",
-        width: "88%",
-        height: 25,
-        alignItems: "center",
-        borderWidth: 2,
-        borderColor: "#757083",
-        margin: 10,
-        marginBottom: 30,
-      },
-      textInput: {
-        flex: 1,
-      },
-      colorText: {
-        color: "#757083",
-      },
-      colorChoiceWrapper: {
-        flex: 0.4,
-        width: "88%",
-      },
-      buttonWrapper: {
-        flex: 0.4,
-        margin: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        width: "88%",
-        marginBottom: 10,
-      },
-      colorPicker: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        marginTop: 20,
-        marginBottom: 20,
-      },
-      circle: {
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-      },
-      color1: {
-        backgroundColor: "#090C08",
-      },
-      color2: {
-        backgroundColor: "#474056",
-      },
-      color3: {
-        backgroundColor: "#8A95A5",
-      },
-      color4: {
-        backgroundColor: "#B9C6AE",
-      },
-    });
-
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -186,23 +97,21 @@ export default class Screen1 extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-
-            <View style={styles.buttonWrapper}>
-              <Button
-                accessible={true}
-                accessibilityLabel="Start Chatting"
-                accessibilityHint="opens the chat window"
-                accessibilityRole="button"
-                style={styles.button}
-                title="Start Chatting"
-                //send state as props to the chat page
-                onPress={() =>
+            <View>
+              <Pressable>
+                style={styles.pressable}
+                onPress=
+                {() =>
                   this.props.navigation.navigate("Chat", {
                     name: this.state.name,
                     color: this.state.color,
                   })
                 }
-              />
+                accessible={true}
+                accessibilityLabel="Start chatting" accessibilityHint="Enters
+                the chat with your selected username and background color"
+                <Text style={styles.pressableText}>Start Chatting</Text>
+              </Pressable>
             </View>
           </View>
         </ImageBackground>
@@ -210,3 +119,93 @@ export default class Screen1 extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  titleWrapper: {
+    flex: 1,
+    padding: 50,
+  },
+  pressable: {
+    backgroundColor: "#757083",
+    width: "17rem",
+    position: "relative",
+    top: "25px",
+    height: "30px",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pressableText: {
+    color: "white",
+  },
+  userInterfaceWrapper: {
+    flex: 1,
+    width: "88%",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "44%",
+    marginBottom: 10,
+    borderRadius: 2,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
+    alignItems: "center",
+  },
+  titleText: {
+    color: "#FFFFFF",
+    fontSize: 45,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  textInputContainer: {
+    flex: 0.26,
+    flexDirection: "row",
+    width: "88%",
+    height: 25,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#757083",
+    margin: 10,
+    marginBottom: 30,
+  },
+  textInput: {
+    flex: 1,
+  },
+  colorText: {
+    color: "#757083",
+  },
+  colorChoiceWrapper: {
+    flex: 0.4,
+    width: "88%",
+  },
+  colorPicker: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  circle: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+  },
+  color1: {
+    backgroundColor: "#090C08",
+  },
+  color2: {
+    backgroundColor: "#474056",
+  },
+  color3: {
+    backgroundColor: "#8A95A5",
+  },
+  color4: {
+    backgroundColor: "#B9C6AE",
+  },
+});

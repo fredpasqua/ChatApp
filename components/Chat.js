@@ -78,10 +78,16 @@ export default class Chat extends React.Component {
   };
 
   onSend(messages = []) {
-    this.setState((previousState) => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
-    this.addMessage(this.state.messages[0]);
+    this.setState(
+      (previousState) => ({
+        messages: GiftedChat.append(previousState.messages, messages),
+      }),
+      () => {
+        console.log("after sending");
+        this.addMessage(this.state.messages[0]);
+      }
+    );
+  
   }
 
   onCollectionUpdate = (querySnapshot) => {
