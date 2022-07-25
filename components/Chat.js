@@ -30,11 +30,7 @@ export default class Chat extends React.Component {
     this.state = {
       messages: [],
       uid: 0,
-      user: {
-        _id: "",
-        name: "",
-        avatar: "",
-      },
+      name: "",
     };
 
     this.referenceChatMessages = firebase.firestore().collection("messages");
@@ -56,6 +52,7 @@ export default class Chat extends React.Component {
       this.setState({
         uid: user.uid,
         messages: [],
+        name: name,
       });
       this.unsubscribe = this.referenceChatMessages
         .orderBy("createdAt", "desc")
@@ -115,7 +112,7 @@ export default class Chat extends React.Component {
         backgroundColor: this.props.route.params.color,
       },
     });
-    let name = this.state.user.name;
+    let name = this.props.route.params.name;
     return (
       <View style={styles.container}>
         <GiftedChat
