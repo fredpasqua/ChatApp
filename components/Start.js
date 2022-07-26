@@ -132,15 +132,17 @@ const styles = StyleSheet.create({
     padding: 50,
   },
   pressable: {
+    flex: 0.75,
     backgroundColor: "#757083",
     position: "relative",
-    top: 25,
-    height: 25,
+    marginTop: 15,
     alignItems: "center",
     justifyContent: "center",
   },
   pressableText: {
     color: "white",
+    fontSize: 16,
+    fontWeight: "600",
   },
   buttonwrapper: {
     width: "88%",
@@ -169,18 +171,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   textInputContainer: {
-    flex: 0.26,
+    flex: 0.2,
     flexDirection: "row",
     width: "88%",
-    height: 25,
+    height: 20,
     alignItems: "center",
     borderWidth: 2,
     borderColor: "#757083",
     margin: 10,
     marginBottom: 30,
-  },
-  textInput: {
-    flex: 1,
   },
   colorText: {
     color: "#757083",
