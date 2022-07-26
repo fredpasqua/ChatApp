@@ -36,7 +36,39 @@ export default class Chat extends React.Component {
 
     this.referenceChatMessages = firebase.firestore().collection("messages");
   }
+  async getMessages() {
+    let messages = "";
+    try {
+      messages = (await AsyncStorage.getItem("messages")) || [];
+      this.setState({
+        messages: JSON.parse(messages),
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem(
+        "messages",
+        JSON.stringify(this.state.messages)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem("messages");
+      this.setState({
+        messages: [],
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   componentDidMount() {
     let { name } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
@@ -55,10 +87,13 @@ export default class Chat extends React.Component {
         messages: [],
         name: name,
       });
-      this.unsubscribe = this.referenceChatMessages
-        .orderBy("createdAt", "desc")
-        .onSnapshot(this.onCollectionUpdate);
     });
+
+    this.getMessages();
+
+    this.unsubscribe = this.referenceChatMessages
+      .orderBy("createdAt", "desc")
+      .onSnapshot(this.onCollectionUpdate);
   }
 
   componentWillUnmount() {
@@ -81,11 +116,9 @@ export default class Chat extends React.Component {
         messages: GiftedChat.append(previousState.messages, messages),
       }),
       () => {
-        console.log("after sending");
         this.addMessage(this.state.messages[0]);
       }
     );
-  
   }
 
   onCollectionUpdate = (querySnapshot) => {
