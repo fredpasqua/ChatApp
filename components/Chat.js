@@ -10,6 +10,7 @@ import { GiftedChat, Bubble, renderBubble } from "react-native-gifted-chat";
 import { StatusBar } from "expo-status-bar";
 import { jestResetJsReanimatedModule } from "react-native-reanimated/lib/reanimated2/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 const firebase = require("firebase");
 require("firebase/firestore");
 
