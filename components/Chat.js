@@ -89,12 +89,30 @@ export default class Chat extends React.Component {
         name: name,
       });
     });
-
+    
+    NetInfo.fetch().then((connection) => {
+      if (connection.isConnected) {
+        console.log("online");
+      } else {
+        console.log("offline");
+      }
+    });
     this.getMessages();
 
     this.unsubscribe = this.referenceChatMessages
       .orderBy("createdAt", "desc")
       .onSnapshot(this.onCollectionUpdate);
+  }
+
+  renderInputToolbar(props) {
+    if (this.state.isConnected == false) {
+    } else {
+      return(
+        <InputToolbar
+        {...props}
+        />
+      );
+    }
   }
 
   componentWillUnmount() {
