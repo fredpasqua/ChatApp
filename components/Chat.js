@@ -82,8 +82,10 @@ export default class Chat extends React.Component {
     NetInfo.fetch().then((connection) => {
       if (connection.isConnected) {
         this.setState({ isConnected: true });
+        this.saveMessages();
         console.log("online");
       } else {
+        this.getMessages();
         console.log("offline");
       }
     });
