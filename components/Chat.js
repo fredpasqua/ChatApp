@@ -22,6 +22,8 @@ const firebaseConfig = {
   messagingSenderId: "485930190039",
   appId: "1:485930190039:web:77ae48a7d82a4fff1cdc92",
 };
+
+//INITIALIZE FIRESTORE DB
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -33,9 +35,8 @@ export default class Chat extends React.Component {
       messages: [],
       uid: 0,
       name: "",
+      isConnected: false,
     };
-
-    this.referenceChatMessages = firebase.firestore().collection("messages");
   }
   async getMessages() {
     let messages = "";
@@ -73,9 +74,20 @@ export default class Chat extends React.Component {
   componentDidMount() {
     let { name } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
-    //create reference to messages
+
+    //create reference to messages:
     this.referenceChatMessages = firebase.firestore().collection("messages");
 
+    //NetInfo checks for user online status:
+    NetInfo.fetch().then((connection) => {
+      if (connection.isConnected) {
+        this.setState({ isConnected: true });
+        console.log("online");
+      } else {
+        this.getMessages();
+        console.log("offline");
+      }
+    });
     //Authenticate user using anonymous
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
@@ -89,30 +101,10 @@ export default class Chat extends React.Component {
         name: name,
       });
     });
-    
-    NetInfo.fetch().then((connection) => {
-      if (connection.isConnected) {
-        console.log("online");
-      } else {
-        console.log("offline");
-      }
-    });
-    this.getMessages();
 
     this.unsubscribe = this.referenceChatMessages
       .orderBy("createdAt", "desc")
       .onSnapshot(this.onCollectionUpdate);
-  }
-
-  renderInputToolbar(props) {
-    if (this.state.isConnected == false) {
-    } else {
-      return(
-        <InputToolbar
-        {...props}
-        />
-      );
-    }
   }
 
   componentWillUnmount() {
@@ -157,6 +149,13 @@ export default class Chat extends React.Component {
       });
     });
   };
+
+  renderInputToolbar(props) {
+    if (this.state.isConnected == false) {
+    } else {
+      return <InputToolbar {...props} />;
+    }
+  }
 
   render() {
     const styles = StyleSheet.create({
