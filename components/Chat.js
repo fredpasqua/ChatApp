@@ -12,8 +12,6 @@ import {
   renderBubble,
   InputToolbar,
 } from "react-native-gifted-chat";
-import { StatusBar } from "expo-status-bar";
-import { jestResetJsReanimatedModule } from "react-native-reanimated/lib/reanimated2/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 const firebase = require("firebase");
@@ -50,6 +48,7 @@ export default class Chat extends React.Component {
       this.setState({
         messages: JSON.parse(messages),
       });
+      console.log(messages + "test Async Storage getMessages setState");
     } catch (error) {
       console.log(error.message);
     }
@@ -76,6 +75,7 @@ export default class Chat extends React.Component {
       console.log(error.message);
     }
   }
+
   componentDidMount() {
     let { name } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
@@ -93,10 +93,7 @@ export default class Chat extends React.Component {
       NetInfo.fetch().then((connection) => {
         if (connection.isConnected) {
           this.setState({ isConnected: true });
-          this.saveMessages();
-          console.log("online");
         } else {
-          this.getMessages();
           console.log("offline");
         }
       });
@@ -112,13 +109,12 @@ export default class Chat extends React.Component {
     this.unsubscribe = this.referenceChatMessages
       .orderBy("createdAt", "desc")
       .onSnapshot(this.onCollectionUpdate);
-
-    this.saveMessages();
   }
 
   componentWillUnmount() {
     this.authUnsubscribe();
     this.unsubscribe();
+    this.saveMessages();
   }
 
   addMessage = (message) => {
