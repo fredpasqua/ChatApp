@@ -89,6 +89,18 @@ export default class Chat extends React.Component {
         firebase.auth().signInAnonymously();
       }
 
+      //NetInfo checks for user online status:
+      NetInfo.fetch().then((connection) => {
+        if (connection.isConnected) {
+          this.setState({ isConnected: true });
+          this.saveMessages();
+          console.log("online");
+        } else {
+          this.getMessages();
+          console.log("offline");
+        }
+      });
+
       //update user state with currently active user data
       this.setState({
         uid: user.uid,
@@ -101,17 +113,7 @@ export default class Chat extends React.Component {
       .orderBy("createdAt", "desc")
       .onSnapshot(this.onCollectionUpdate);
 
-    //NetInfo checks for user online status:
-    NetInfo.fetch().then((connection) => {
-      if (connection.isConnected) {
-        this.setState({ isConnected: true });
-        this.saveMessages();
-        console.log("online");
-      } else {
-        this.getMessages();
-        console.log("offline");
-      }
-    });
+    this.saveMessages();
   }
 
   componentWillUnmount() {
