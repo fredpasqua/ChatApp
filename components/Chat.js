@@ -6,7 +6,12 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
 } from "react-native";
-import { GiftedChat, Bubble, renderBubble } from "react-native-gifted-chat";
+import {
+  GiftedChat,
+  Bubble,
+  renderBubble,
+  InputToolbar,
+} from "react-native-gifted-chat";
 import { StatusBar } from "expo-status-bar";
 import { jestResetJsReanimatedModule } from "react-native-reanimated/lib/reanimated2/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -78,17 +83,6 @@ export default class Chat extends React.Component {
     //create reference to messages:
     this.referenceChatMessages = firebase.firestore().collection("messages");
 
-    //NetInfo checks for user online status:
-    NetInfo.fetch().then((connection) => {
-      if (connection.isConnected) {
-        this.setState({ isConnected: true });
-        this.saveMessages();
-        console.log("online");
-      } else {
-        this.getMessages();
-        console.log("offline");
-      }
-    });
     //Authenticate user using anonymous
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
@@ -106,6 +100,18 @@ export default class Chat extends React.Component {
     this.unsubscribe = this.referenceChatMessages
       .orderBy("createdAt", "desc")
       .onSnapshot(this.onCollectionUpdate);
+
+    //NetInfo checks for user online status:
+    NetInfo.fetch().then((connection) => {
+      if (connection.isConnected) {
+        this.setState({ isConnected: true });
+        this.saveMessages();
+        console.log("online");
+      } else {
+        this.getMessages();
+        console.log("offline");
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -170,6 +176,8 @@ export default class Chat extends React.Component {
       <View style={styles.container}>
         <GiftedChat
           messages={this.state.messages}
+          isConnected={this.state.isConnected}
+          renderInputToolbar={this.rederInputToolbar}
           onSend={(messages) => this.onSend(messages)}
           renderBubble={(props) => {
             return (
