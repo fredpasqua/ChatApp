@@ -95,6 +95,7 @@ export default class Chat extends React.Component {
           this.setState({ isConnected: true });
         } else {
           console.log("offline");
+          this.getMessages();
         }
       });
 
