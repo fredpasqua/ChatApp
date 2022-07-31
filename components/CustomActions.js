@@ -86,6 +86,7 @@ export default class CustomActions extends Component {
       console.log(error.message);
     }
   };
+
   onActionPress = () => {
     const options = [
       "Choose From Library",
@@ -114,12 +115,13 @@ export default class CustomActions extends Component {
       }
     );
   };
+
   render() {
     return (
       <TouchableOpacity
         accessible={true}
         accessibilityLabel="More options"
-        accessibilityHint="Will allow you to choose to send an image or your geolocation."
+        accessibilityHint="Let’s you choose to send an image or your geolocation."
         style={[styles.container]}
         onPress={this.onActionPress}
       >
@@ -130,6 +132,7 @@ export default class CustomActions extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     width: 26,

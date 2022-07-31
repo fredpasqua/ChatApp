@@ -199,7 +199,7 @@ export default class Chat extends React.Component {
           messages={this.state.messages}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderActions={this.renderCustomActions}
-          renderCustomview={this.renderCusomView}
+          renderCustomView={this.renderCustomView}
           onSend={(messages) => this.onSend(messages)}
           renderBubble={(props) => {
             return (
