@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  View,
-  Platform,
-  Text,
-  KeyboardAvoidingView,
-  StyleSheet,
-} from "react-native";
-import {
-  GiftedChat,
-  Bubble,
-  renderBubble,
-  InputToolbar,
-} from "react-native-gifted-chat";
+import { View, Platform, KeyboardAvoidingView, StyleSheet } from "react-native";
+import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import CustomActions from "./CustomActions";
+import MapView, { Marker } from "react-native-maps";
 const firebase = require("firebase");
 require("firebase/firestore");
 
@@ -135,6 +125,7 @@ export default class Chat extends React.Component {
       }),
       () => {
         this.addMessage(this.state.messages[0]);
+        this.saveMessages();
       }
     );
   }
@@ -168,6 +159,31 @@ export default class Chat extends React.Component {
     return <CustomActions {...props} />;
   };
 
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: location.result.coords.latitude,
+              longitude: location.result.coords.longitude,
+            }}
+          />
+        </MapView>
+      );
+    }
+    return null;
+  }
+
   render() {
     const styles = StyleSheet.create({
       container: {
@@ -182,6 +198,7 @@ export default class Chat extends React.Component {
           messages={this.state.messages}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderActions={this.renderCustomActions}
+          renderCustomview={this.renderCusomView}
           onSend={(messages) => this.onSend(messages)}
           renderBubble={(props) => {
             return (
