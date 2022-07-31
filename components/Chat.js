@@ -5,6 +5,7 @@ import {
   Text,
   KeyboardAvoidingView,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import {
   GiftedChat,
@@ -14,6 +15,7 @@ import {
 } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
+import CustomActions from "./CustomActions";
 const firebase = require("firebase");
 require("firebase/firestore");
 
@@ -163,6 +165,10 @@ export default class Chat extends React.Component {
     }
   }
 
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   render() {
     const styles = StyleSheet.create({
       container: {
@@ -176,6 +182,7 @@ export default class Chat extends React.Component {
         <GiftedChat
           messages={this.state.messages}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
+          renderActions={this.renderCustomActions}
           onSend={(messages) => this.onSend(messages)}
           renderBubble={(props) => {
             return (
