@@ -5,7 +5,6 @@ import {
   Text,
   KeyboardAvoidingView,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import {
   GiftedChat,
