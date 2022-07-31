@@ -119,7 +119,7 @@ export class CustomActions extends Component {
       <TouchableOpacity
         accessible={true}
         accessibilityLabel="More options"
-        accessibilityHint="Let’s you choose to send an image or your geolocation."
+        accessibilityHint="Will allow you to choose to send an image or your geolocation."
         style={[styles.container]}
         onPress={this.onActionPress}
       >
