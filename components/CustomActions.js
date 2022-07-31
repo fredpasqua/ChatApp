@@ -1,13 +1,13 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import PropTypes from "prop-types";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import firebase from "firebase";
 import firestore from "firebase";
 
-export class CustomActions extends Component {
+export default class CustomActions extends Component {
   /**
    * Let the user pick an image from the device's image library
    * @function imagePicker
@@ -155,5 +155,3 @@ const styles = StyleSheet.create({
 CustomActions.contextTypes = {
   actionSheet: PropTypes.func,
 };
-
-export default CustomActions;
